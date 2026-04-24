@@ -3,30 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onlineshop</title>
-    <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            grid-gap: 20px;
-            grid-auto-rows: minmax(300px, auto);
-            justify-items: center;
-            align-items: center;
-        }
-        .product-card {
-            background: #f1f1f1;
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    <title>Anna Merch Shop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="grid-container" id="productGrid">
@@ -116,167 +94,18 @@
         </div>
     </div>
 
+    <!-- EmailJS -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // Produktdaten
-        const products = [
-            {
-                id: 1,
-                name: "T-Shirt",
-                price: 20.00,
-                image: "https://via.placeholder.com/150",
-                description: "Ein bequemes T-Shirt"
-            },
-            {
-                id: 2,
-                name: "Hoodie",
-                price: 35.00,
-                image: "https://via.placeholder.com/150",
-                description: "Ein warmer Hoodie"
-            },
-            {
-                id: 3,
-                name: "Cap",
-                price: 15.00,
-                image: "https://via.placeholder.com/150",
-                description: "Eine coole Cap"
-            },
-            {
-                id: 4,
-                name: "Jeans",
-                price: 40.00,
-                image: "https://via.placeholder.com/150",
-                description: "Eine stylische Jeans"
-            },
-            {
-                id: 5,
-                name: "Sneakers",
-                price: 50.00,
-                image: "https://via.placeholder.com/150",
-                description: "Bequeme Sneakers"
-            }
-        ];
-
-        // Funktion zum Erstellen der Produktkarten
-        function createProductCards() {
-            const gridContainer = document.querySelector('.grid-container');
-
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.className = 'product-card';
-                productCard.setAttribute('data-id', product.id);
-
-                const productImage = document.createElement('img');
-                productImage.src = product.image;
-                productImage.alt = product.name;
-
-                const productName = document.createElement('h3');
-                productName.textContent = product.name;
-
-                const productPrice = document.createElement('p');
-                productPrice.textContent = `$${product.price.toFixed(2)}`;
-
-                productCard.appendChild(productImage);
-                productCard.appendChild(productName);
-                productCard.appendChild(productPrice);
-
-                gridContainer.appendChild(productCard);
-            });
-        }
-
-        // Erstellen der Produktkarten beim Laden der Seite
-        document.addEventListener('DOMContentLoaded', createProductCards);
-
-        // Modal öffnen
-        function openModal(productId) {
-            document.getElementById('orderModal').style.display = 'block';
-            // Hier könnte man die Produktdaten in das Formular laden
-        }
-
-        // Modal schließen
-        function closeModal() {
-            document.getElementById('orderModal').style.display = 'none';
-        }
-
-        // Event-Listener für das Schließen des Modals
-        document.querySelector('.close').addEventListener('click', closeModal);
-
-        // Event-Listener für das Öffnen des Modals beim Klick auf eine Produktkarte
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id');
-                openModal(productId);
-            });
-        });
-
-        // Formularvalidierung
-        document.getElementById('orderForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let isValid = true;
-
-            // Validierung der Eingaben
-            const size = document.getElementById('size').value;
-            const color = document.getElementById('color').value;
-            const gender = document.querySelector('input[name="gender"]\:checked');
-            const grade = document.getElementById('grade').value;
-            const classLetter = document.getElementById('class').value;
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-
-            if (!size) {
-                document.getElementById('sizeError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('sizeError').style.display = 'none';
-            }
-
-            if (!color) {
-                document.getElementById('colorError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('colorError').style.display = 'none';
-            }
-
-            if (!gender) {
-                document.getElementById('genderError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('genderError').style.display = 'none';
-            }
-
-            if (!grade) {
-                document.getElementById('gradeError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('gradeError').style.display = 'none';
-            }
-
-            if (!classLetter) {
-                document.getElementById('classError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('classError').style.display = 'none';
-            }
-
-            if (name.length < 3) {
-                document.getElementById('nameError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('nameError').style.display = 'none';
-            }
-
-            if (!email.includes('@')) {
-                document.getElementById('emailError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('emailError').style.display = 'none';
-            }
-
-            if (isValid) {
-                // Hier können Sie die Bestellung absenden, z.B. via EmailJS
-                alert('Bestellung erfolgreich!');
-                closeModal();
-            }
-        });
+        (function() {
+            emailjs.init('YOUR_EMAILJS_USER_ID');
+        })();
     </script>
+
+    <!-- PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR"></script>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
